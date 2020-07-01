@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <utility>
 #include <vector>
 
 #include <armadillo>
@@ -30,8 +31,9 @@ Friction::Friction(std::shared_ptr<GreensTensor> greens_tensor,
                    std::shared_ptr<Polarizability> polarizability,
                    std::shared_ptr<PowerSpectrum> powerspectrum,
                    double relerr_omega)
-    : greens_tensor(greens_tensor), polarizability(polarizability),
-      powerspectrum(powerspectrum), relerr_omega(relerr_omega) {}
+    : greens_tensor(std::move(greens_tensor)),
+      polarizability(std::move(polarizability)),
+      powerspectrum(std::move(powerspectrum)), relerr_omega(relerr_omega) {}
 
 double Friction::calculate(Spectrum_Options spectrum) const {
   double result;
@@ -85,7 +87,7 @@ double Friction::friction_integrand(double omega,
     return real(2. * trace(-powerspec * green_kv +
                            1. / M_PI * alpha_I * green_temp_kv));
   }
-  // Compute onyl the non-LTE contribution of the power-spectrum
+  // Compute only the non-LTE contribution of the power-spectrum
   else if (spectrum == NON_LTE_ONLY) {
     // Initialize all tensors
     cx_mat::fixed<3, 3> J(fill::zeros);
@@ -108,8 +110,7 @@ double Friction::friction_integrand(double omega,
 
     // Put everything together
     return real(
-        trace(2. *
-              (-J * green_kv + alpha_fancy_I * green_fancy_I_kv_non_LTE)));
+        trace(2. * (-J * green_kv + alpha_fancy_I * green_fancy_I_kv_non_LTE)));
   }
   // Ensure that a valid integration argument has been passed
   else {
@@ -122,8 +123,8 @@ double Friction::friction_integrand(double omega,
 
 void Friction::print_info(std::ostream &stream) const {
   stream << "# Friction\n#\n"
-  << "# relerr_omega = " << relerr_omega << "\n";
- greens_tensor->print_info(stream);
- polarizability->print_info(stream);
- powerspectrum->print_info(stream);
+         << "# relerr_omega = " << relerr_omega << "\n";
+  greens_tensor->print_info(stream);
+  polarizability->print_info(stream);
+  powerspectrum->print_info(stream);
 }

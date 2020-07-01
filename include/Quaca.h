@@ -34,4 +34,6 @@
 #include "../src/ReflectionCoefficients/ReflectionCoefficientsLocBulk.h"
 #include "../src/ReflectionCoefficients/ReflectionCoefficientsLocSlab.h"
 
+#include "../src/version.h"
+
 #endif //QUACA_H

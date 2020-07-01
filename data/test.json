@@ -27,7 +27,7 @@
         "type": "v",
         "scale": "log",
         "start": 1e-8,
-        "end": 1e2,
-        "steps": 400
+        "end": 1e-5,
+        "steps": 20
     }
 }

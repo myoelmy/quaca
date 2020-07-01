@@ -1,3 +1,5 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "openmp-use-default-none"
 #include <iostream>
 #include <omp.h>
 
@@ -121,6 +123,8 @@ int main(int argc, char *argv[]) {
   std::ofstream file;
   file.open(output_file);
 
+  print_quaca_build_info("#", file);
+
   // write the data to the file
   double step;
   for (int i = 0; i < looper->get_steps_total(); i++) {
@@ -136,3 +140,5 @@ int main(int argc, char *argv[]) {
 
   return 0;
 }
+
+#pragma clang diagnostic pop

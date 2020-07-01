@@ -22,13 +22,34 @@ set(quaca_sources
         ReflectionCoefficients/ReflectionCoefficientsFactory.cpp
         ReflectionCoefficients/ReflectionCoefficientsLocBulk.cpp
         ReflectionCoefficients/ReflectionCoefficientsLocSlab.cpp
+		version.cpp
         )
 add_library(quaca SHARED ${quaca_sources})
 
+# add git head and branch (taken from https://github.com/michael-hartmann/caps)
+if (EXISTS "${PROJECT_SOURCE_DIR}/.git" AND ${GIT_FOUND})
+	execute_process(
+			COMMAND ${GIT_EXECUTABLE} rev-parse --abbrev-ref HEAD
+			WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+			OUTPUT_VARIABLE GIT_BRANCH
+			OUTPUT_STRIP_TRAILING_WHITESPACE
+	)
+
+	execute_process(
+			COMMAND ${GIT_EXECUTABLE} log -1 --format=%h
+			WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+			OUTPUT_VARIABLE GIT_COMMIT_HASH
+			OUTPUT_STRIP_TRAILING_WHITESPACE
+	)
+
+	target_compile_definitions(quaca PRIVATE -DGIT_HEAD="${GIT_COMMIT_HASH}" -DGIT_BRANCH="${GIT_BRANCH}")
+	message("Git info added. commit hash: ${GIT_COMMIT_HASH} branch: ${GIT_BRANCH}")
+endif ()
+
 # link libraries
 target_link_libraries(quaca
-        ${GSL_LIBRARY}
-        ${GSL_CBLAS_LIBRARY}
+		${GSL_LIBRARY}
+		${GSL_CBLAS_LIBRARY}
         ${BLAS_LIBRARIES}
         ${LAPACK_LIBRARIES}
         ${Boost_FILESYSTEM_LIBRARY}
