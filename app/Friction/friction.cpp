@@ -92,7 +92,7 @@ int main(int argc, char *argv[]) {
     // Load the json file in this ptree
     pt::read_json(parameter_file, root);
 
-    double relerr_omega = root.get<double>("Friction.relerr_omega");
+    auto relerr_omega = root.get<double>("Friction.relerr_omega");
 
     // define needed quantities
     auto polarizability = std::make_shared<Polarizability>(parameter_file);

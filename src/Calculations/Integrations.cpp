@@ -23,8 +23,8 @@ double cquad(const std::function<double(double)> &f, double a, double b,
   /* Call the integrator. */
   /* set nevals and abserr pointer to nullptr, we are only interested in result
    */
-  int success = gsl_integration_cquad(F, a, b, epsabs, relerr, ws, &res,
-                                      nullptr, nullptr);
+  const int success = gsl_integration_cquad(F, a, b, epsabs, relerr, ws, &res,
+                                            nullptr, nullptr);
   if (success != 0) {
     printf("cquad error: %s\n", gsl_strerror(success));
     abort();
@@ -56,7 +56,7 @@ double qags(const std::function<double(double)> &f, double a, double b,
   /* Call the integrator. */
   /* set nevals and abserr pointer to nullptr, we are only interested in result
    */
-  int success =
+  const int success =
       gsl_integration_qags(F, a, b, epsabs, relerr, 1000, ws, &res, &abserr);
   if (success != 0) {
     printf("qags error: %s\n", gsl_strerror(success));
@@ -90,7 +90,7 @@ double qagiu(const std::function<double(double)> &f, double a, double relerr,
   /* Call the integrator. */
   /* set nevals and abserr pointer to nullptr, we are only interested in result
    */
-  int success =
+  const int success =
       gsl_integration_qagiu(F, a, epsabs, relerr, 10000, ws, &res, &abserr);
   if (success != 0) {
     printf("qagiu error: %s\n", gsl_strerror(success));

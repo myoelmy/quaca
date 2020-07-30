@@ -11,7 +11,7 @@ namespace pt = boost::property_tree;
 
 // reflection coefficients factory
 std::shared_ptr<ReflectionCoefficients>
-ReflectionCoefficientsFactory::create(const std::string& input_file) {
+ReflectionCoefficientsFactory::create(const std::string &input_file) {
   // Create a root
   pt::ptree root;
 
@@ -19,7 +19,7 @@ ReflectionCoefficientsFactory::create(const std::string& input_file) {
   pt::read_json(input_file, root);
 
   // read the type of reflection coefficient
-  std::string type = root.get<std::string>("ReflectionCoefficients.type");
+  auto type = root.get<std::string>("ReflectionCoefficients.type");
 
   // set the right pointer, show error if type is unknown
   if (type == "local bulk") {

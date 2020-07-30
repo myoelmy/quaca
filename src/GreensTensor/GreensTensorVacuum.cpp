@@ -10,10 +10,10 @@ namespace pt = boost::property_tree;
 
 GreensTensorVacuum::GreensTensorVacuum(double v, double beta, double relerr)
     : GreensTensor(v, beta), relerr(relerr) {
-    assert(relerr >= 0);
-    }
+  assert(relerr >= 0);
+}
 
-GreensTensorVacuum::GreensTensorVacuum(const std::string& input_file)
+GreensTensorVacuum::GreensTensorVacuum(const std::string &input_file)
     : GreensTensor(input_file) {
 
   // Create a root
@@ -23,12 +23,12 @@ GreensTensorVacuum::GreensTensorVacuum(const std::string& input_file)
   pt::read_json(input_file, root);
 
   // Load relative accuracy
-  this->relerr = root.get<double>("GreensTensor.rel_err_1");
+  relerr = root.get<double>("GreensTensor.rel_err_1");
 
   assert(relerr >= 0);
 
   // check if type is right
-  std::string type = root.get<std::string>("GreensTensor.type");
+  auto type = root.get<std::string>("GreensTensor.type");
   assert(type == "vacuum");
 }
 
@@ -37,12 +37,12 @@ GreensTensorVacuum::GreensTensorVacuum(const std::string& input_file)
 void GreensTensorVacuum::calculate_tensor(double omega, vec::fixed<2> k,
                                           cx_mat::fixed<3, 3> &GT) const {
   // Read out the k-vector and the frequency \omega
-  double k_x = k(0);
-  double k_y = k(1);
+  const double k_x = k(0);
+  const double k_y = k(1);
 
   // Define useful variables
-  double k_quad = k_x * k_x + k_y * k_y;
-  double omega_quad = omega * omega;
+  const double k_quad = k_x * k_x + k_y * k_y;
+  const double omega_quad = omega * omega;
 
   // Reset tensor in which the final result is stored
   GT.zeros();
@@ -51,7 +51,7 @@ void GreensTensorVacuum::calculate_tensor(double omega, vec::fixed<2> k,
   if (omega_quad - k_quad > 0) {
     // Compute the diagonal components of the tensor. The off-diagonal
     // elements are all zero
-    double pre = 1.0 / (2 * M_PI * sqrt(omega_quad - k_quad));
+    const double pre = 1.0 / (2 * M_PI * sqrt(omega_quad - k_quad));
     GT(0, 0) = pre * (omega_quad - k_x * k_x);
     GT(1, 1) = pre * (omega_quad - k_y * k_y);
     GT(2, 2) = pre * k_quad;
@@ -78,19 +78,15 @@ void GreensTensorVacuum::integrate_k(double omega, cx_mat::fixed<3, 3> &GT,
 
       // Numerically integrate the xx component
       auto F_xx = [=](double x) -> double {
-        return this->integrand_k(x, omega, {0, 0}, fancy_complex,
-                                 weight_function);
+        return integrand_k(x, omega, {0, 0}, fancy_complex, weight_function);
       };
-      GT(0, 0) = cquad(F_xx, -omega / (1.0 + this->v), omega / (1.0 - this->v),
-                       this->relerr, 0);
+      GT(0, 0) = cquad(F_xx, -omega / (1.0 + v), omega / (1.0 - v), relerr, 0);
 
       // yy component
       auto F_yy = [=](double x) -> double {
-        return this->integrand_k(x, omega, {1, 1}, fancy_complex,
-                                 weight_function);
+        return integrand_k(x, omega, {1, 1}, fancy_complex, weight_function);
       };
-      GT(1, 1) = cquad(F_yy, -omega / (1.0 + this->v), omega / (1.0 - this->v),
-                       this->relerr, 0);
+      GT(1, 1) = cquad(F_yy, -omega / (1.0 + v), omega / (1.0 - v), relerr, 0);
 
       // zz component
       GT(2, 2) = GT(1, 1);
@@ -100,19 +96,15 @@ void GreensTensorVacuum::integrate_k(double omega, cx_mat::fixed<3, 3> &GT,
 
       // Numerically integrate the xx component
       auto F_xx = [=](double x) -> double {
-        return this->integrand_k(x, omega, {0, 0}, fancy_complex,
-                                 weight_function);
+        return integrand_k(x, omega, {0, 0}, fancy_complex, weight_function);
       };
-      GT(0, 0) = -cquad(F_xx, omega / (1.0 - this->v), -omega / (1.0 + this->v),
-                        this->relerr, 0);
+      GT(0, 0) = -cquad(F_xx, omega / (1.0 - v), -omega / (1.0 + v), relerr, 0);
 
       // yy component
       auto F_yy = [=](double x) -> double {
-        return this->integrand_k(x, omega, {1, 1}, fancy_complex,
-                                 weight_function);
+        return integrand_k(x, omega, {1, 1}, fancy_complex, weight_function);
       };
-      GT(1, 1) = -cquad(F_yy, omega / (1.0 - this->v), -omega / (1.0 + this->v),
-                        this->relerr, 0);
+      GT(1, 1) = -cquad(F_yy, omega / (1.0 - v), -omega / (1.0 + v), relerr, 0);
 
       // zz component
       GT(2, 2) = GT(1, 1);
@@ -127,9 +119,9 @@ double GreensTensorVacuum::integrand_k(double kv, double omega,
                                        const uvec::fixed<2> &indices,
                                        Tensor_Options fancy_complex,
                                        Weight_Options weight_function) const {
-  double omega_pl = (omega + kv * v);
-  double omega_pl_quad = omega_pl * omega_pl;
-  double xi_quad = omega_pl_quad - kv * kv;
+  const double omega_pl = (omega + kv * v);
+  const double omega_pl_quad = omega_pl * omega_pl;
+  const double xi_quad = omega_pl_quad - kv * kv;
 
   // Variable to store the final result
   double result = 0;

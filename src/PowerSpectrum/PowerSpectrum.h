@@ -19,7 +19,7 @@ protected:
                       // response of the microscopic particle
 public:
   // Constructors
-  PowerSpectrum(const std::string &input_file);
+  explicit PowerSpectrum(const std::string &input_file);
 
   // Constructor with initialization list
   PowerSpectrum(std::shared_ptr<GreensTensor> greens_tensor,
@@ -30,8 +30,10 @@ public:
                  Spectrum_Options spectrum) const;
 
   // getter functions
-  std::shared_ptr<GreensTensor> get_greens_tensor() { return greens_tensor; };
-  std::shared_ptr<Polarizability> get_polarizability() {
+  std::shared_ptr<GreensTensor> get_greens_tensor() const {
+    return greens_tensor;
+  };
+  std::shared_ptr<Polarizability> get_polarizability() const {
     return polarizability;
   };
 

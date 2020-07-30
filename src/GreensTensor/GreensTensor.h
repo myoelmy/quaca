@@ -16,7 +16,7 @@ enum Weight_Options { UNIT, KV, TEMP, KV_TEMP, NON_LTE, KV_NON_LTE };
  */
 class GreensTensor {
 protected:
-  double v; //velocity of the particle 
+  double v;    // velocity of the particle
   double beta; // inverse temperature
 
 public:
@@ -44,7 +44,7 @@ public:
   virtual void set_v(double v_new) { this->v = v_new; };
 
   // print info
-  virtual void print_info(std::ostream &stream) const =0;
+  virtual void print_info(std::ostream &stream) const = 0;
 };
 
 #endif // GREENSTENSOR_H

@@ -10,7 +10,7 @@ GreensTensor::GreensTensor(double v, double beta) : v(v), beta(beta) {
   assert(beta > 0);
 }
 
-GreensTensor::GreensTensor(const std::string& input_file) {
+GreensTensor::GreensTensor(const std::string &input_file) {
   // Create a root
   pt::ptree root;
 
@@ -18,8 +18,8 @@ GreensTensor::GreensTensor(const std::string& input_file) {
   pt::read_json(input_file, root);
 
   // read parameters
-  this->v = root.get<double>("GreensTensor.v");
+  v = root.get<double>("GreensTensor.v");
   assert(v >= 0 && v < 1);
-  this->beta = root.get<double>("GreensTensor.beta");
+  beta = root.get<double>("GreensTensor.beta");
   assert(beta > 0);
 }

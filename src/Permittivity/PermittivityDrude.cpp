@@ -22,15 +22,15 @@ PermittivityDrude::PermittivityDrude(const std::string &input_file) {
   assert(type == "drude");
 
   // read parameters
-  this->gamma = root.get<double>("Permittivity.gamma");
-  this->omega_p = root.get<double>("Permittivity.omega_p");
+  gamma = root.get<double>("Permittivity.gamma");
+  omega_p = root.get<double>("Permittivity.omega_p");
 }
 
 // calculate the permittivity
 std::complex<double> PermittivityDrude::calculate(double omega) const {
   // dummies for result and complex unit
   std::complex<double> result;
-  std::complex<double> I(0.0, 1.0);
+  const std::complex<double> I(0.0, 1.0);
 
   // calculate the result
   result = 1.0 - omega_p * omega_p / (omega * (omega + I * gamma));
@@ -43,7 +43,7 @@ std::complex<double>
 PermittivityDrude::calculate_times_omega(double omega) const {
   // dummies for result and complex unit
   std::complex<double> result;
-  std::complex<double> I(0.0, 1.0);
+  const std::complex<double> I(0.0, 1.0);
 
   // calculate the result
   result = omega - omega_p * omega_p / (omega + I * gamma);

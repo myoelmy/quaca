@@ -1,9 +1,9 @@
 #ifndef GREENSTENSORPLATEVACUUM_H
 #define GREENSTENSORPLATEVACUUM_H
 
-#include <memory>
 #include "GreensTensorPlate.h"
 #include "GreensTensorVacuum.h"
+#include <memory>
 
 class GreensTensorPlateVacuum : public GreensTensorPlate {
 private:
@@ -11,9 +11,10 @@ private:
 
 public:
   // constructors
-  GreensTensorPlateVacuum(double v, double beta, double za,
-                          std::shared_ptr<ReflectionCoefficients> reflection_coefficients,
-                          double delta_cut, vec::fixed<2> rel_err);
+  GreensTensorPlateVacuum(
+      double v, double beta, double za,
+      std::shared_ptr<ReflectionCoefficients> reflection_coefficients,
+      double delta_cut, vec::fixed<2> rel_err);
   explicit GreensTensorPlateVacuum(const std::string &input_file);
 
   // calculate the tensor in frequency and momentum space
@@ -26,7 +27,7 @@ public:
                    Weight_Options weight_function) const override;
 
   // getters
-  std::shared_ptr<GreensTensorVacuum> get_vacuums_greens_tensor() {
+  std::shared_ptr<GreensTensorVacuum> get_vacuums_greens_tensor() const {
     return vacuum_greens_tensor;
   };
 

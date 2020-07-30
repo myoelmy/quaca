@@ -14,7 +14,7 @@ public:
                          std::complex<double> &r_s) const = 0;
 
   // print info
-  virtual void print_info(std::ostream &stream) const =0;
+  virtual void print_info(std::ostream &stream) const = 0;
 };
 
 #endif // REFLECTIONCOEFFICIENTS_H

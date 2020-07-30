@@ -27,9 +27,9 @@ PermittivityLorentz::PermittivityLorentz(const std::string &input_file) {
   assert(type == "lorentz");
 
   // read parameters
-  this->eps_inf = root.get<double>("Permittivity.eps_inf");
-  this->omega_p = root.get<double>("Permittivity.omega_p");
-  this->omega_0 = root.get<double>("Permittivity.omega_0");
+  eps_inf = root.get<double>("Permittivity.eps_inf");
+  omega_p = root.get<double>("Permittivity.omega_p");
+  omega_0 = root.get<double>("Permittivity.omega_0");
 
   this->memory_kernel =
       MemoryKernelFactory::create(input_file, "Permittivity.MemoryKernel");
@@ -39,7 +39,7 @@ PermittivityLorentz::PermittivityLorentz(const std::string &input_file) {
 std::complex<double> PermittivityLorentz::calculate(double omega) const {
   // dummies for result and complex unit
   std::complex<double> result;
-  std::complex<double> I(0.0, 1.0);
+  const std::complex<double> I(0.0, 1.0);
 
   // calculate the result
   result = eps_inf - omega_p * omega_p /
@@ -54,7 +54,7 @@ std::complex<double>
 PermittivityLorentz::calculate_times_omega(double omega) const {
   // dummies for result and complex unit
   std::complex<double> result;
-  std::complex<double> I(0.0, 1.0);
+  const std::complex<double> I(0.0, 1.0);
 
   // calculate the result
   result = eps_inf * omega - omega_p * omega_p * omega /

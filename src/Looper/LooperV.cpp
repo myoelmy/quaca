@@ -25,7 +25,7 @@ double
 LooperV::calculate_value(int step,
                          std::shared_ptr<Friction> quantum_friction) const {
   // change v
-  quantum_friction->get_greens_tensor()->set_v(this->steps[step]);
+  quantum_friction->get_greens_tensor()->set_v(steps[step]);
 
   return quantum_friction->calculate(NON_LTE_ONLY);
 }

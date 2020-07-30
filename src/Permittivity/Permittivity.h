@@ -13,7 +13,7 @@ public:
   virtual std::complex<double> calculate_times_omega(double omega) const = 0;
 
   // print info
-  virtual void print_info(std::ostream &stream) const =0;
+  virtual void print_info(std::ostream &stream) const = 0;
 };
 
 #endif // PERMITTIVITY_H

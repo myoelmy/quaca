@@ -1,8 +1,8 @@
 #ifndef PERMITTIVITYFACTORY_H
 #define PERMITTIVITYFACTORY_H
 
-#include <memory>
 #include "Permittivity.h"
+#include <memory>
 
 //! A Permittivity factory
 class PermittivityFactory {

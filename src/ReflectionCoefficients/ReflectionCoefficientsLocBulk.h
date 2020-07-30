@@ -22,8 +22,9 @@ public:
   /*!
    * Constructor for reflection coefficients of a local bulk medium.
    */
-  ReflectionCoefficientsLocBulk(std::shared_ptr<Permittivity> permittivity);
-  ReflectionCoefficientsLocBulk(const std::string &input_file);
+  explicit ReflectionCoefficientsLocBulk(
+      std::shared_ptr<Permittivity> permittivity);
+  explicit ReflectionCoefficientsLocBulk(const std::string &input_file);
 
   /*!
    * Returns the p- and s-polarized reflection coefficient.

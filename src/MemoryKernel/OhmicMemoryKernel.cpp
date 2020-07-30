@@ -5,7 +5,7 @@ namespace pt = boost::property_tree;
 
 #include "OhmicMemoryKernel.h"
 
-OhmicMemoryKernel::OhmicMemoryKernel(double gamma) : gamma(gamma){}
+OhmicMemoryKernel::OhmicMemoryKernel(double gamma) : gamma(gamma) {}
 
 OhmicMemoryKernel::OhmicMemoryKernel(const std::string &input_file,
                                      const std::string &section) {
@@ -20,7 +20,7 @@ OhmicMemoryKernel::OhmicMemoryKernel(const std::string &input_file,
   assert(type == "ohmic");
 
   // read damping coefficient
-  this->gamma = root.get<double>(section + ".gamma");
+  gamma = root.get<double>(section + ".gamma");
 }
 
 OhmicMemoryKernel::OhmicMemoryKernel(const std::string &input_file) {
@@ -35,12 +35,12 @@ OhmicMemoryKernel::OhmicMemoryKernel(const std::string &input_file) {
   assert(type == "ohmic");
 
   // read damping coefficient
-  this->gamma = root.get<double>("MemoryKernel.gamma");
+  gamma = root.get<double>("MemoryKernel.gamma");
 }
 
 // return mu(omega) for defined memory kernel
 std::complex<double> OhmicMemoryKernel::calculate(double omega) const {
-  const std::complex<double> gammac(this->gamma, 0E0);
+  const std::complex<double> gammac(gamma, 0E0);
   return gammac;
 }
 

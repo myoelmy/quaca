@@ -20,7 +20,7 @@ protected:
   double relerr_omega;
 
 public:
-  Friction(const std::string &input_file);
+  explicit Friction(const std::string &input_file);
   Friction(std::shared_ptr<GreensTensor> greens_tensor,
            std::shared_ptr<Polarizability> polarizability,
            std::shared_ptr<PowerSpectrum> powerspectrum, double relerr_omega);
@@ -29,11 +29,15 @@ public:
   double friction_integrand(double omega, Spectrum_Options spectrum) const;
 
   // getter functions
-  std::shared_ptr<GreensTensor> get_greens_tensor() { return greens_tensor; };
-  std::shared_ptr<Polarizability> get_polarizability() {
+  std::shared_ptr<GreensTensor> get_greens_tensor() const {
+    return greens_tensor;
+  };
+  std::shared_ptr<Polarizability> get_polarizability() const {
     return polarizability;
   };
-  std::shared_ptr<PowerSpectrum> get_powerspectrum() { return powerspectrum; };
+  std::shared_ptr<PowerSpectrum> get_powerspectrum() const {
+    return powerspectrum;
+  };
 
   // print info
   void print_info(std::ostream &stream) const;

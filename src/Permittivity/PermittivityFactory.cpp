@@ -19,7 +19,7 @@ PermittivityFactory::create(const std::string &input_file) {
   pt::read_json(input_file, root);
 
   // read the type of permittivity
-  std::string type = root.get<std::string>("Permittivity.type");
+  auto type = root.get<std::string>("Permittivity.type");
 
   // set the right pointer, show error if type is unknown
   if (type == "drude") {

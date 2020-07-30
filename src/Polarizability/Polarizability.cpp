@@ -11,10 +11,9 @@ namespace pt = boost::property_tree;
 // Constructor without an internal bath
 Polarizability::Polarizability(double omega_a, double alpha_zero,
                                std::shared_ptr<GreensTensor> greens_tensor)
-    : omega_a(omega_a), alpha_zero(alpha_zero),
-      greens_tensor(std::move(greens_tensor)) {
-  this->mu = nullptr;
-}
+    : omega_a(omega_a), alpha_zero(alpha_zero), mu(nullptr),
+      greens_tensor(std::move(greens_tensor)) {}
+
 // Constructor with internal bath mu
 Polarizability::Polarizability(double omega_a, double alpha_zero,
                                std::shared_ptr<MemoryKernel> mu,
@@ -30,32 +29,31 @@ Polarizability::Polarizability(const std::string &input_file) {
   pt::read_json(input_file, root);
 
   // read parameters
-  this->omega_a = root.get<double>("Polarizability.omega_a");
-  this->alpha_zero = root.get<double>("Polarizability.alpha_zero");
+  omega_a = root.get<double>("Polarizability.omega_a");
+  alpha_zero = root.get<double>("Polarizability.alpha_zero");
 
   // read greens tensor
-  this->greens_tensor = GreensTensorFactory::create(input_file);
+  greens_tensor = GreensTensorFactory::create(input_file);
 
   // Check if the category Polarizability.MemoryKernel exists
   boost::optional<pt::ptree &> kernel_given =
       root.get_child_optional("Polarizability.MemoryKernel");
 
   if (kernel_given) {
-    this->mu =
-        MemoryKernelFactory::create(input_file, "Polarizability.MemoryKernel");
+    mu = MemoryKernelFactory::create(input_file, "Polarizability.MemoryKernel");
   } else {
-    this->mu = nullptr;
+    mu = nullptr;
   }
 }
 
 void Polarizability::calculate_tensor(double omega, cx_mat::fixed<3, 3> &alpha,
                                       Tensor_Options fancy_complex) const {
   // imaginary unit
-  std::complex<double> I(0.0, 1.0);
+  const std::complex<double> I(0.0, 1.0);
 
   // calculate diagonal entries
-  cx_mat::fixed<3, 3> diag;
-  diag.zeros();
+  cx_mat::fixed<3, 3> diag(fill::zeros);
+
   if (mu != nullptr) {
     diag(0, 0) = diag(1, 1) = diag(2, 2) =
         (omega_a * omega_a - omega * omega) - I * omega * mu->calculate(omega);
@@ -64,11 +62,11 @@ void Polarizability::calculate_tensor(double omega, cx_mat::fixed<3, 3> &alpha,
   }
   // calculate integral over green's tensor with fancy R
   cx_mat::fixed<3, 3> greens_R;
-  this->greens_tensor->integrate_k(omega, greens_R, RE, UNIT);
+  greens_tensor->integrate_k(omega, greens_R, RE, UNIT);
 
   // calculate integral over green's tensor with fancy I
   cx_mat::fixed<3, 3> greens_I;
-  this->greens_tensor->integrate_k(omega, greens_I, IM, UNIT);
+  greens_tensor->integrate_k(omega, greens_I, IM, UNIT);
 
   // put everything together
   alpha =
@@ -101,7 +99,7 @@ double Polarizability::integrate_omega(const uvec::fixed<2> &indices,
                                        double omega_min, double omega_max,
                                        double relerr, double abserr) const {
   auto F = [=](double x) -> double {
-    return this->integrand_omega(x, indices, fancy_complex);
+    return integrand_omega(x, indices, fancy_complex);
   };
   return cquad(F, omega_min, omega_max, relerr, abserr);
 }

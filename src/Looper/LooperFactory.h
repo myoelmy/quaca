@@ -1,8 +1,8 @@
 #ifndef LOOPERFACTORY_H
 #define LOOPERFACTORY_H
 
-#include <memory>
 #include "Looper.h"
+#include <memory>
 
 class LooperFactory {
 public:

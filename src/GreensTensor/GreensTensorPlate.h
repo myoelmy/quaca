@@ -2,7 +2,6 @@
 #define GREENSTENSORPLATE_H
 
 #include <armadillo>
-#include <assert.h>
 #include <cmath>
 #include <complex>
 #include <memory>
@@ -13,7 +12,7 @@
 //! The class of the Green's tensor above a flat macroscopic surface
 class GreensTensorPlate : public GreensTensor {
 protected:
-  //distance between microscopic object and macroscopic surface
+  // distance between microscopic object and macroscopic surface
   double za;
 
   // kappa_cut defines the numerical cut-off of the kappa integration

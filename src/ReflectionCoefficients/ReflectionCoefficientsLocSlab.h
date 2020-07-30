@@ -26,7 +26,7 @@ public:
   ReflectionCoefficientsLocSlab(std::shared_ptr<Permittivity> permittivity,
                                 double thickness);
 
-  ReflectionCoefficientsLocSlab(const std::string &input_file);
+  explicit ReflectionCoefficientsLocSlab(const std::string &input_file);
 
   /*!
    * Returns the p- and s-polarized reflection coefficient.

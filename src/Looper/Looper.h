@@ -16,8 +16,7 @@ protected:
 
 public:
   // constructors
-  Looper(double start, double end, int number_of_steps,
-         const std::string &scale);
+  Looper(double start, double end, int number_of_steps, std::string scale);
   explicit Looper(const std::string &input_file);
 
   // calculate the the value of quantum friction
