@@ -1,7 +1,7 @@
 <!-- docs/_sidebar.md -->
 
 - [__Getting Started__](gettingstarted)
-- [__Tutorials__](tutorials/first_calculation)
+- [__Tutorials__]()
   - [First QuaCa calculation](tutorials/first_calculation)
   - [Write your own main](tutorials/mainfile)
   - [Implement a new feature](tutorials/newfeature)

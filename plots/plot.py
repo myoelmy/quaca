@@ -15,8 +15,8 @@ def main():
     y = plotdata[:, 1]
 
     # make loglogplot from this
-    matplotlib.rcParams["text.usetex"] = True;
-    matplotlib.rcParams["font.size"] = 24;
+    matplotlib.rcParams["text.usetex"] = True
+    matplotlib.rcParams["font.size"] = 24
     plt.figure(figsize=(10, 3))
     plt.loglog(x,-y)
     plt.show()

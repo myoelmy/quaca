@@ -149,7 +149,7 @@ auto friction = std::make_shared<Friction>(greens_tensor, polarizability, power_
 ```
 Perfect!
 We have defined every object there is to calculate quantum friction and have set all parameters.
-All that is left to do is calculate the quantum friction and print out the result.
+All that is left to do is calculate the quantum friction and print the result.
 
 For the calculation we still need to define our scale.
 We want to calculate the friction for velocities ranging from `1e-4` to `1e-2` on a logarithmic scale.
@@ -182,8 +182,8 @@ The option `NON_LTE_ONLY` specifies the form of the power spectrum we want to us
 
 At the end of our main function we have to close the file, so that all together our `tutorial.cpp` looks like this
 ```cpp
-#include "ProgressBar.hpp"
 #include "Quaca.h"
+#include <iostream>
 
 int main(int argc, char *argv[]) {
 
@@ -263,10 +263,12 @@ Run the executable by typing into the console
 quaca/build> ./../bin/Tutorial
 ```
 Notice that because of the way we have written our main function, the output file `tutorial_mainfile.csv` will be placed wherever the executable is run, so in this case it will be placed in the `build/` directory.
+You will also notice that this code is running a lot longer than the equivalent code from the [first Tutorial](tutorials/first_calculation).
+This is because our executable `Tutorial` here is not parallelized, the executable `Friction` is.
 
 ## 4. Check the results
 Plot the data again by using our prepared plot script
 ```bash
-quaca/plots> python plot.py ../build/tutorial_mainfile.csv
+quaca/plots> python plot.py ../app/tutorial_mainfile.csv
 ```
 You should obtain a plot that looks exactly like the one we have got in the [first Tutorial](tutorials/first_calculation).

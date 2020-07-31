@@ -28,13 +28,13 @@ Then to build the code type inside the project directory
 quaca $ mkdir -p build
 quaca $ cd build
 quaca/build $ cmake ..
-quaca/build $ make quaca
+quaca/build $ make 
 ```
 
-An executable called `quaca` should now have been build and can be found in the `quaca/bin` directory.
+An executable called `Friction` should now have been build and can be found in the `quaca/bin` directory.
 
 ### Documentation
-The documentation can either be seen [here](https://quacateam.github.io/quaca/) or be viewed locally using [Python 3](https://www.python.org/download/releases/3.0/) by
+The documentation can either be accessed [here](https://quacateam.github.io/quaca/) or be viewed locally using [Python 3](https://www.python.org/download/releases/3.0/) by
 ```
 quaca $ cd docs && python3 -m http.server 3000
 ```
@@ -42,10 +42,10 @@ or [Python 2.7](https://www.python.org/download/releases/2.7/) by
 ```
 quaca $ cd docs && python -m SimpleHTTPServer 3000
 ```
-You can then see the documentation in your browser at the adress `http://localhost:3000/`.
+You can then view the documentation in your browser at the adress `http://localhost:3000/`.
 
 ### Testing
-The follow a test-driven development style and are currently use [Catch2](https://github.com/catchorg/Catch2) for our testing.
+The follow a test-driven development style and are currently using [Catch2](https://github.com/catchorg/Catch2) for our testing.
 We split our tests into unit tests, which test the consistency of individual classes and functions, and integrated tests
 which test the interplay of classes and functions.
 To run tests, build the tests first with

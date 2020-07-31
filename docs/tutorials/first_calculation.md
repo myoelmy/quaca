@@ -28,11 +28,11 @@ Our setup consists of:
 Further physical assumptions and details are explained in [this paper](http://link.aps.org/doi/10.1103/PhysRevLett.117.100402).
 ## 2. Create the input file
 There are lots of things we could change in the above setup without changing the formula we have to use.
-Because of this inherent modularity QuaCa reads an input file that contains all these parameters, so that the program does not have to be recompiled on each change.
+Because of this inherent modularity, QuaCa reads an input file that contains all parameters such as the velocity of the particle, its distance to the surface, ... , so that the program does not have to be recompiled on each change.
 
 The parameters are written in  a `.json` file.
 It consists of sections, which are named after the classes (e.g. `GreensTensor`, `Polarizability`) and keys which are named after the properties they represent (e.g. the velocity v, the inverse temperature beta, etc.).
-Classes are abstract units that resemble a larger term in the formula for quantum friction such as the polarizability, the power spectrum or the Green's tensor.
+Classes are abstract units that resemble a larger term in the formula for quantum friction such as the polarizability, the power spectrum or the Green tensor.
 Let us now create an input file in the `data/` directory and call it `tutorial.json`:
 ```json
 {
@@ -102,6 +102,8 @@ It contains in the first column the variable that we have looped over (which in 
 
 ## 4. Check the results
 Let us now plot the data we obtained from our calculation and compare it to the yellowish line in [this publication](https://link.aps.org/doi/10.1103/PhysRevLett.123.120401).
+The plot shows the acceleration of the particle.
+For a better comparison the plot script therefore divides our computed by the mass of the particle.
 We have a plot script prepared for in the `plots/` directory.
 Simply type
 ```bash
