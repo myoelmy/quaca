@@ -30,29 +30,31 @@ quaca/build $ make quaca
 An executable called `quaca` should now have been build and can be found in the `quaca/bin` directory.
 
 ## Documentation
-For now we do not upload the documentation anywhere, so it can only be viewed locally using the following command from the command line
-### Python 2.7
-```bash
+The documentation can either be accessed [here](https://quacateam.github.io/quaca/) or be viewed locally using [Python 3](https://www.python.org/download/releases/3.0/) by
+```
+quaca $ cd docs && python3 -m http.server 3000
+```
+or [Python 2.7](https://www.python.org/download/releases/2.7/) by
+```
 quaca $ cd docs && python -m SimpleHTTPServer 3000
 ```
-### Python 3
-```bash
-quaca $ cd docs && python -m http.server 3000
-```
-
-You can then see the documentation in your browser at the address `http://localhost:3000/`.
+You can then view the documentation in your browser at the adress `http://localhost:3000/`.
 
 ## Testing
-Employing test-driven development, we are using [Catch2](https://github.com/catchorg/Catch2) for our unit and integrated testing.
-To build and run all implemented test use
-```bash
-quaca/build $ make test_quaca
+We follow a test-driven development style and are currently using [Catch2](https://github.com/catchorg/Catch2) for our testing.
+We split our tests into unit tests, which test the consistency of individual classes and functions, and integrated tests
+which test the interplay of classes and functions.
+To run tests, build the tests first with
 ```
-and afterwards run the tests from the `bin/` directory
-```bash
-quaca/bin $ ./test_quaca
+quaca/build $ make test_quaca_unit test_quaca_integrated
+```
+then run the tests from the `bin/` directory
+```
+quaca/bin $ ./test_quaca_unit
+quaca/bin $ ./test_quaca_integrated
 ```
 More detailled information is given in the section [Testing](dev/testing.md).
+
 ## Contributing
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on how you can become a part of this project.
 
